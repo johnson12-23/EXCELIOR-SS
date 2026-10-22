@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Brightside Cleaning – Hero</title>
+<style>
+:root{
+  --bg:#eef6f4; --ink:#10302c; --muted:#4b6b66; --accent:#0e8f7e; --accent-ink:#fff;
+  --wall:#dcece8; --floor:#b9d3cd; --shine:#ffffff; --win:#bfe3f2; --shirt:#0e8f7e; --pants:#27455a;
+  --sun:#fff6c9;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0c1b19; --ink:#e6f4f1; --muted:#9bbcb6; --accent:#2fc7b0; --accent-ink:#06201c;
+    --wall:#173532; --floor:#244a45; --shine:#9fe9dc; --win:#2a5a70; --shirt:#1aa896; --pants:#8fb2c9; --sun:#3b4a3a;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0c1b19; --ink:#e6f4f1; --muted:#9bbcb6; --accent:#2fc7b0; --accent-ink:#06201c;
+  --wall:#173532; --floor:#244a45; --shine:#9fe9dc; --win:#2a5a70; --shirt:#1aa896; --pants:#8fb2c9; --sun:#3b4a3a;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Fraunces",Georgia,serif}
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1.25fr;align-items:center;gap:2rem;max-width:1200px;margin:0 auto;padding:2rem 1.5rem}
+.copy h1{font-size:clamp(2.2rem,5vw,4rem);line-height:1.05;margin:0 0 1rem;font-weight:700;letter-spacing:-.02em}
+.copy p{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--muted);font-size:1.1rem;line-height:1.6;max-width:34ch;margin:0 0 1.75rem}
+.btn{display:inline-block;font-family:system-ui,sans-serif;font-weight:600;background:var(--accent);color:var(--accent-ink);padding:.9rem 1.5rem;border-radius:999px;text-decoration:none}
+.btn:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.scene{width:100%;border-radius:28px;overflow:hidden;box-shadow:0 20px 50px rgba(16,48,44,.18)}
+svg{display:block;width:100%;height:auto}
+.swing,.streak{animation-duration:3.2s;animation-iteration-count:infinite;animation-timing-function:ease-in-out;animation-direction:alternate}
+.swing{transform-origin:400px 195px;animation-name:swing}
+.streak{animation-name:streak}
+.bob{transform-origin:400px 375px;animation:bob 1.6s ease-in-out infinite}
+@keyframes swing{from{transform:rotate(-13deg)}to{transform:rotate(13deg)}}
+@keyframes streak{from{transform:translateX(-46px)}to{transform:translateX(46px)}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+.bub{animation:rise 4s ease-in infinite;opacity:0}
+.bub:nth-child(2){animation-delay:1.3s}.bub:nth-child(3){animation-delay:2.4s}.bub:nth-child(4){animation-delay:3.1s}
+@keyframes rise{0%{transform:translateY(0) scale(.6);opacity:0}15%{opacity:.9}100%{transform:translateY(-120px) scale(1.1);opacity:0}}
+.sp{transform-box:fill-box;transform-origin:center;animation:tw 2.2s ease-in-out infinite;opacity:0}
+.sp:nth-child(2){animation-delay:.5s}.sp:nth-child(3){animation-delay:1s}.sp:nth-child(4){animation-delay:1.5s}.sp:nth-child(5){animation-delay:.8s}
+@keyframes tw{0%,100%{opacity:0;transform:scale(.2) rotate(0)}50%{opacity:1;transform:scale(1) rotate(45deg)}}
+.glint{animation:glint 5s ease-in-out infinite}
+@keyframes glint{0%,100%{opacity:.15}50%{opacity:.6}}
+@media (max-width:820px){.hero{grid-template-columns:1fr;min-height:0}.copy p{max-width:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}.sp{opacity:1}}
+</style>
+</head>
+<body>
+<section class="hero">
+  <div class="copy">
+    <h1>Come home to a spotless space.</h1>
+    <p>Friendly, vetted cleaners for homes and offices. Book in two minutes and we bring everything we need.</p>
+    <a class="btn" href="#book">Book a cleaning</a>
+  </div>
+
+  <div class="scene" role="img" aria-label="Animation of a cleaner in a teal uniform mopping a shiny floor beside a bucket with bubbles">
+    <svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".9"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+        <linearGradient id="sunl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff6c9" stop-opacity=".7"/><stop offset="1" stop-color="#fff6c9" stop-opacity="0"/></linearGradient>
+      </defs>
+      <!-- wall + floor -->
+      <rect width="800" height="450" fill="var(--wall)"/>
+      <rect y="330" width="800" height="120" fill="var(--floor)"/>
+      <rect y="326" width="800" height="6" fill="var(--shine)" opacity=".5"/>
+      <!-- window -->
+      <rect x="90" y="60" width="190" height="170" rx="8" fill="var(--win)"/>
+      <path d="M185 60v170M90 145h190" stroke="var(--wall)" stroke-width="6"/>
+      <path d="M110 80l50 0-70 120z" fill="#fff" class="glint"/>
+      <path d="M90 230l-110 110h250z" fill="url(#sunl)" opacity=".5"/>
+      <!-- shine streak following mop -->
+      <g class="streak"><ellipse cx="460" cy="385" rx="130" ry="22" fill="url(#g)"/></g>
+      <!-- sparkles -->
+      <g fill="#fff">
+        <path class="sp" d="M560 350l6 14 14 6-14 6-6 14-6-14-14-6 14-6z"/>
+        <path class="sp" d="M470 400l5 11 11 5-11 5-5 11-5-11-11-5 11-5z"/>
+        <path class="sp" d="M640 410l5 11 11 5-11 5-5 11-5-11-11-5 11-5z"/>
+        <path class="sp" d="M360 415l4 9 9 4-9 4-4 9-4-9-9-4 9-4z"/>
+        <path class="sp" d="M690 345l4 9 9 4-9 4-4 9-4-9-9-4 9-4z"/>
+      </g>
+      <!-- bucket + bubbles -->
+      <g transform="translate(150 0)">
+        <g fill="#fff" stroke="var(--accent)" stroke-width="2">
+          <circle class="bub" cx="100" cy="335" r="10"/><circle class="bub" cx="118" cy="340" r="7"/>
+          <circle class="bub" cx="86" cy="342" r="6"/><circle class="bub" cx="108" cy="338" r="5"/>
+        </g>
+        <path d="M70 345h60l-8 50h-44z" fill="#f2b632"/>
+        <ellipse cx="100" cy="345" rx="30" ry="7" fill="#9fd8ee"/>
+        <path d="M72 346q28-48 56 0" fill="none" stroke="#6b7a80" stroke-width="3"/>
+      </g>
+      <!-- wet floor sign -->
+      <g transform="translate(640 0)">
+        <path d="M0 395l25-60 25 60z" fill="#f7c600" stroke="#c99a00" stroke-width="2"/>
+        <rect x="23" y="352" width="4" height="22" rx="2" fill="#222"/><circle cx="25" cy="382" r="3" fill="#222"/>
+      </g>
+      <!-- man -->
+      <ellipse cx="400" cy="385" rx="52" ry="8" fill="#000" opacity=".15"/>
+      <g class="bob">
+        <rect x="381" y="270" width="16" height="104" rx="6" fill="var(--pants)"/>
+        <rect x="403" y="270" width="16" height="104" rx="6" fill="var(--pants)"/>
+        <ellipse cx="386" cy="377" rx="16" ry="7" fill="#222"/><ellipse cx="416" cy="377" rx="16" ry="7" fill="#222"/>
+        <rect x="370" y="175" width="60" height="105" rx="20" fill="var(--shirt)"/>
+        <rect x="392" y="150" width="16" height="30" fill="#c98f6b"/>
+        <circle cx="400" cy="140" r="26" fill="#d9a07b"/>
+        <path d="M373 134q27-38 54 0z" fill="#f2b632"/><rect x="396" y="124" width="46" height="9" rx="4" fill="#f2b632"/>
+        <circle cx="391" cy="143" r="2.5" fill="#222"/><circle cx="410" cy="143" r="2.5" fill="#222"/>
+        <path d="M392 153q9 7 18 0" stroke="#222" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <!-- swinging arms + mop -->
+        <g class="swing">
+          <line x1="400" y1="195" x2="440" y2="262" stroke="var(--shirt)" stroke-width="16" stroke-linecap="round"/>
+          <line x1="438" y1="262" x2="500" y2="372" stroke="#8a6a4a" stroke-width="6" stroke-linecap="round"/>
+          <circle cx="440" cy="263" r="9" fill="#d9a07b"/>
+          <path d="M470 370h60l8 24h-76z" fill="#fff" stroke="var(--accent)" stroke-width="3"/>
+          <path d="M478 372v22M492 372v22M506 372v22M520 372v22" stroke="var(--accent)" stroke-width="2" opacity=".5"/>
+        </g>
+        <!-- logo badge -->
+        <circle cx="384" cy="205" r="7" fill="#fff" opacity=".9"/><path d="M384 200l1.8 3.6 3.6 1.8-3.6 1.8-1.8 3.6-1.8-3.6-3.6-1.8 3.6-1.8z" fill="var(--accent)"/>
+      </g>
+    </svg>
+  </div>
+</section>
+</body>
+</html>
