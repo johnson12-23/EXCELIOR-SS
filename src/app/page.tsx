@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { ArrowDown, ArrowRight, Check } from "lucide-react";
 
 const services = [
@@ -17,6 +18,12 @@ const faqs = [
 ];
 
 export default function Home() {
+  const [catalog, setCatalog] = useState(services);
+  useEffect(() => {
+    fetch("/api/services").then((response) => response.json()).then((result) => {
+      if (Array.isArray(result.services)) setCatalog(result.services.map((service: { name: string; description: string }, index: number) => ({ no: String(index + 1).padStart(2, "0"), title: service.name, desc: service.description, tag: service.name.toUpperCase() })));
+    }).catch(() => undefined);
+  }, []);
   return <main className="home-page">
     <section className="hero" id="top">
       <div className="hero-inner">
@@ -54,7 +61,7 @@ export default function Home() {
 
     <section className="services section-pad" id="services">
       <div className="section-top"><div><div className="eyebrow"><span/> WHAT WE DO, BEAUTIFULLY</div><h2>A place for every<br/><em>kind of clean.</em></h2></div><p className="section-aside">A thoughtful team. A fresh perspective.<br/>The little details, taken care of.</p></div>
-      <div className="service-grid">{services.map((s) => <article className="service-card service-card-text" key={s.no}><div className="service-info"><div className="service-card-top"><span className="service-number">{s.no}</span><span className="service-tag">{s.tag}</span></div><h3>{s.title}</h3><p>{s.desc}</p><a className="text-link" href="/quote">Ask about this service <ArrowRight size={14}/></a></div></article>)}</div>
+      <div className="service-grid">{catalog.map((s) => <article className="service-card service-card-text" key={s.no}><div className="service-info"><div className="service-card-top"><span className="service-number">{s.no}</span><span className="service-tag">{s.tag}</span></div><h3>{s.title}</h3><p>{s.desc}</p><a className="text-link" href="/quote">Ask about this service <ArrowRight size={14}/></a></div></article>)}</div>
       <div className="services-foot"><span>GOOD THINGS, THOUGHTFULLY DONE.</span><a className="text-link" href="/quote">Find your kind of clean <ArrowRight size={14}/></a></div>
     </section>
 

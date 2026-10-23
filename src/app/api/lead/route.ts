@@ -53,8 +53,11 @@ export async function POST(request: Request) {
   const phone = typeof body.phone === "string" ? body.phone.trim().slice(0, 40) : "";
   const service = typeof body.service === "string" ? body.service.trim() : "";
   const message = typeof body.message === "string" ? body.message.trim() : "";
+  const requestedDate = typeof body.requested_date === "string" ? body.requested_date.trim() : "";
+  const requestedTime = typeof body.requested_time === "string" ? body.requested_time.trim() : "";
+  const location = typeof body.location === "string" ? body.location.trim() : "";
 
-  if (!name || name.length > 120 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 254 || !services.has(service) || !message || message.length > 2000) {
+  if (!name || name.length > 120 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 254 || !service || service.length > 100 || !message || message.length > 2000 || (requestedDate && !/^\d{4}-\d{2}-\d{2}$/.test(requestedDate)) || (requestedTime && !/^\d{2}:\d{2}$/.test(requestedTime)) || location.length > 240) {
     return NextResponse.json({ error: "Please check your name, email, service and space details, then try again." }, { status: 400 });
   }
 
@@ -69,13 +72,26 @@ export async function POST(request: Request) {
 
   try {
     const supabase = createClient(supabaseUrl, supabaseKey, { auth: { persistSession: false, autoRefreshToken: false } });
-    const { data, error } = await supabase.from("quote_requests").insert({
+    const { data: catalogService, error: catalogError } = await supabase.from("service_catalog").select("name").eq("name", service).eq("active", true).maybeSingle();
+    if (!catalogError && !catalogService) return NextResponse.json({ error: "Please choose an available cleaning service." }, { status: 400 });
+    if (catalogError && !services.has(service)) return NextResponse.json({ error: "Please choose an available cleaning service." }, { status: 400 });
+    const requestValues = {
       name,
       email,
       phone: phone || null,
       service,
       message,
-    }).select("id").single();
+      requested_date: requestedDate || null,
+      requested_time: requestedTime || null,
+      location: location || null,
+    };
+    let { data, error } = await supabase.from("quote_requests").insert(requestValues).select("id").single();
+    if (error && (error.code === "PGRST204" || error.code === "42703")) {
+      // Keep the existing quote form available until the dashboard migration is applied.
+      const fallback = await supabase.from("quote_requests").insert({ name, email, phone: phone || null, service, message }).select("id").single();
+      data = fallback.data;
+      error = fallback.error;
+    }
 
     if (error || !data?.id) {
       console.error("Unable to save quote request", error?.code ?? "unknown", error?.message ?? "The inserted request did not return an id.");
@@ -85,12 +101,16 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "We couldn’t save your request. Please try again shortly." }, { status: 500 });
     }
 
-    if (resendKey && notificationEmail && senderEmail) {
+    let notificationsEnabled = true;
+    const { data: businessSettings, error: settingsError } = await supabase.from("business_settings").select("email_notifications,business_email").eq("id", 1).maybeSingle();
+    if (!settingsError && businessSettings?.email_notifications === false) notificationsEnabled = false;
+    const businessRecipient = notificationEmail || businessSettings?.business_email;
+    if (resendKey && businessRecipient && senderEmail && notificationsEnabled) {
       const reference = String(data.id);
-      const details = [`Name: ${name}`, `Email: ${email}`, `Phone: ${phone || "Not provided"}`, `Service: ${service}`, "", "Space details:", message].join("\n");
+      const details = [`Name: ${name}`, `Email: ${email}`, `Phone: ${phone || "Not provided"}`, `Service: ${service}`, `Preferred date: ${requestedDate || "Not specified"}`, `Preferred time: ${requestedTime || "Not specified"}`, `Location: ${location || "Not provided"}`, "", "Space details:", message].join("\n");
       const [businessSent, clientSent] = await Promise.all([
         sendEmail(resendKey, senderEmail, {
-          to: [notificationEmail],
+          to: [businessRecipient],
           reply_to: email,
           subject: `New quote request: ${service} — ${name}`,
           text: details,

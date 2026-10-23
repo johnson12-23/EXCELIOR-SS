@@ -20,6 +20,8 @@ export default function SiteChrome({ children }: Readonly<{ children: React.Reac
 
   useEffect(() => setMenuOpen(false), [pathname]);
 
+  if (pathname.startsWith("/admin")) return <>{children}</>;
+
   return <>
     <div className="announcement"><Sparkles size={13} /> A little more lovely, every day <span className="announcement-dot">✳</span> Thoughtful cleaning, made personal</div>
     <header className="header">

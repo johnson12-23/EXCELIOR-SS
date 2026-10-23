@@ -1,0 +1,20 @@
+export type BookingStatus = "pending" | "confirmed" | "in_progress" | "completed" | "cancelled";
+export type QuoteRequest = {
+  id: string;
+  name: string;
+  email: string;
+  phone: string | null;
+  service: string;
+  message: string | null;
+  created_at: string;
+  status: BookingStatus;
+  requested_date: string | null;
+  requested_time: string | null;
+  location: string | null;
+  internal_note: string | null;
+  updated_at: string;
+};
+export type ServiceItem = { id: string; name: string; description: string; price_label: string; image_path: string | null; active: boolean; sort_order: number };
+export type TeamMember = { id: string; name: string; email: string | null; phone: string | null; role: string; active: boolean; created_at: string };
+export type BusinessSettings = { company_name: string; business_email: string; business_phone: string; service_areas: string; booking_policy: string; email_notifications: boolean };
+export type PaymentTransaction = { id: string; quote_request_id: string | null; provider: string; reference: string; amount_minor: number; currency: string; status: "pending" | "successful" | "failed" | "refunded"; verified_at: string | null; created_at: string };

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./redesign.css";
+import "./admin.css";
 import SiteChrome from "./site-chrome";
 
 export const metadata: Metadata = {
