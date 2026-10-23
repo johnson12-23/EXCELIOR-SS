@@ -386,6 +386,3 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
 
-.home-page .faq-item summary { display: flex; align-items: center; justify-content: space-between; gap: 18px; min-height: 58px; padding: 16px 0; list-style: none; cursor: pointer; color: #263344; font-family: var(--sans); font-size: 15px; font-weight: 600; }
-.home-page .faq-item summary::-webkit-details-marker { display: none; }
-.home-page .faq-item[open] .faq-plus { transform: rotate(45deg); }

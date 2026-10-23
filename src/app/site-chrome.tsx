@@ -32,6 +32,6 @@ export default function SiteChrome({ children }: Readonly<{ children: React.Reac
       <button className="menu-button" onClick={() => setMenuOpen((open) => !open)} aria-label={menuOpen ? "Close menu" : "Open menu"} aria-expanded={menuOpen} aria-controls="main-navigation">{menuOpen ? <X/> : <Menu/>}</button>
     </header>
     {children}
-    <footer className="footer"><div className="footer-top"><Link className="brand brand-footer" href="/"><Image className="brand-logo" src="/excelior-logo.svg" alt="" width={48} height={48}/><span className="brand-copy">EXCELIOR<small>SOLUTIONS SERVICES</small></span></Link><p>A little more lovely,<br/><i>every day.</i></p></div><div className="footer-bottom"><span>© {new Date().getFullYear()} EXCELIOR SOLUTIONS SERVICES</span><span>MADE WITH CARE, ALWAYS <b>✳</b></span><Link href="/">BACK TO HOME ↑</Link></div></footer>
+    <footer className="footer"><div className="footer-top"><p>A little more lovely,<br/><i>every day.</i></p></div><div className="footer-bottom"><span>© {new Date().getFullYear()} EXCELIOR SOLUTIONS SERVICES</span><span>MADE WITH CARE, ALWAYS <b>✳</b></span><Link href="/">BACK TO HOME ↑</Link></div></footer>
   </>;
 }
