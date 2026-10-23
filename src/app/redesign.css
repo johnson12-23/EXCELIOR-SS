@@ -186,6 +186,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .approach-page .process-list p, .touch-page .touch-values p, .faq-page .route-faq-list details p { text-align: justify; text-justify: inter-word; }
 .approach-page .interior-copy, .touch-page .interior-copy, .faq-page .interior-copy { padding-top: 48px; padding-bottom: 48px; }
 .approach-page .detail-section, .touch-page .detail-section { max-width: 1200px; }
+.services-page .detail-section, .touch-page .detail-section { margin-right: auto; margin-left: auto; }
 .approach-page .detail-section>.eyebrow, .touch-page .detail-section>.eyebrow { justify-content: center; }
 .approach-page .detail-section>h2, .touch-page .detail-section>h2 { margin-right: auto; margin-left: auto; text-align: center; }
 .approach-page .process-list { max-width: 980px; margin: 0 auto; }
