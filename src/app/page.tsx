@@ -1,7 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import { ArrowDown, ArrowRight, Check, ChevronDown } from "lucide-react";
+import { ArrowDown, ArrowRight, Check } from "lucide-react";
 
 const services = [
   { no: "01", title: "Home, beautifully", desc: "Regular care for the rooms you live in, shaped around your routine and the details that matter to you.", tag: "RESIDENTIAL" },
@@ -15,35 +14,16 @@ const services = [
 const faqs = [
   { q: "What’s included in a clean?", a: "Every visit is tailored to your space. We’ll agree the rooms, priorities and any special requests before your appointment, then send a clear checklist with your quote." },
   { q: "Do I need to be home?", a: "Not at all. If you prefer, arrange a secure way for your cleaner to access the space. We’ll confirm the details together before your first visit." },
-  { q: "How do I get a price?", a: "Share a few details in the quote form and our team will follow up with a personalised, no-obligation estimate. Every space is different, so we quote with care." },
-  { q: "Can I book regular visits?", a: "Absolutely. Ask us about weekly, fortnightly and monthly schedules. We’ll find a rhythm that fits your space and your life." },
 ];
 
 export default function Home() {
-  const [faqOpen, setFaqOpen] = useState<number | null>(0);
-  const [status, setStatus] = useState("");
-  const [submitting, setSubmitting] = useState(false);
-
-  async function submitQuote(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault(); setSubmitting(true); setStatus("");
-    const form = e.currentTarget;
-    const data = Object.fromEntries(new FormData(form).entries());
-    try {
-      const response = await fetch("/api/lead", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
-      const result = await response.json();
-      if (!response.ok) throw new Error(result.error || "Something went wrong. Please try again.");
-      setStatus("Your request is on its way. We’ll be in touch soon."); form.reset();
-    } catch (error) { setStatus(error instanceof Error ? error.message : "Something went wrong. Please try again."); }
-    finally { setSubmitting(false); }
-  }
-
   return <main className="home-page">
     <section className="hero" id="top">
       <div className="hero-inner">
         <div className="eyebrow hero-eyebrow"><span/> A FRESHER KIND OF CLEAN</div>
         <h1>Come home to<br/><em>a spotless space.</em></h1>
         <p className="hero-intro">Friendly, vetted cleaners for homes and offices. Book in two minutes and we bring everything we need.</p>
-        <a className="button button-light" href="#quote">Book a cleaning <ArrowRight size={16}/></a>
+        <a className="button button-light" href="/quote">Book a cleaning <ArrowRight size={16}/></a>
         <div className="hero-note"><span className="note-icon">✳</span><span>CONSIDERED CLEANING<br/><b>for the way you live</b></span></div>
       </div>
       <div className="hero-scene" role="img" aria-label="A cleaner in a teal uniform mops a shiny floor beside a bucket with bubbles">
@@ -74,17 +54,15 @@ export default function Home() {
 
     <section className="services section-pad" id="services">
       <div className="section-top"><div><div className="eyebrow"><span/> WHAT WE DO, BEAUTIFULLY</div><h2>A place for every<br/><em>kind of clean.</em></h2></div><p className="section-aside">A thoughtful team. A fresh perspective.<br/>The little details, taken care of.</p></div>
-      <div className="service-grid">{services.map((s) => <article className="service-card service-card-text" key={s.no}><div className="service-info"><div className="service-card-top"><span className="service-number">{s.no}</span><span className="service-tag">{s.tag}</span></div><h3>{s.title}</h3><p>{s.desc}</p><a className="text-link" href="#quote">Ask about this service <ArrowRight size={14}/></a></div></article>)}</div>
-      <div className="services-foot"><span>GOOD THINGS, THOUGHTFULLY DONE.</span><a className="text-link" href="#quote">Find your kind of clean <ArrowRight size={14}/></a></div>
+      <div className="service-grid">{services.map((s) => <article className="service-card service-card-text" key={s.no}><div className="service-info"><div className="service-card-top"><span className="service-number">{s.no}</span><span className="service-tag">{s.tag}</span></div><h3>{s.title}</h3><p>{s.desc}</p><a className="text-link" href="/quote">Ask about this service <ArrowRight size={14}/></a></div></article>)}</div>
+      <div className="services-foot"><span>GOOD THINGS, THOUGHTFULLY DONE.</span><a className="text-link" href="/quote">Find your kind of clean <ArrowRight size={14}/></a></div>
     </section>
 
-    <section className="manifesto" id="love"><div className="manifesto-photo" role="img" aria-label="Detail of a quiet, warmly lit home"/><div className="manifesto-panel"><span className="eyebrow"><span/> THE EXCELIOR TOUCH</span><div className="manifesto-star">✳</div><h2>Care is in<br/>the <em>details.</em></h2><p>We believe a truly lovely clean isn’t a checklist. It’s noticing the things that matter to you, respecting the space you’ve made, and leaving everything feeling a little lighter.</p><div className="manifesto-sign">A little more lovely, <i>every day.</i></div><a className="button button-dark" href="#quote">Meet your new clean <ArrowRight size={16}/></a></div></section>
+    <section className="manifesto" id="love"><div className="manifesto-photo" role="img" aria-label="Detail of a quiet, warmly lit home"/><div className="manifesto-panel"><span className="eyebrow"><span/> THE EXCELIOR TOUCH</span><div className="manifesto-star">✳</div><h2>Care is in<br/>the <em>details.</em></h2><p>We believe a truly lovely clean isn’t a checklist. It’s noticing the things that matter to you, respecting the space you’ve made, and leaving everything feeling a little lighter.</p><div className="manifesto-sign">A little more lovely, <i>every day.</i></div><a className="button button-dark" href="/quote">Meet your new clean <ArrowRight size={16}/></a></div></section>
 
     <section className="promise section-pad"><div className="promise-heading"><div className="eyebrow"><span/> OUR PROMISE TO YOU</div><h2>The little things<br/>make <em>all the difference.</em></h2></div><div className="promise-list"><div><span>01</span><p><b>People, with care.</b> Thoughtful, professional cleaners who care about the details.</p><Check/></div><div><span>02</span><p><b>Made around you.</b> Your priorities, your space, your kind of lovely.</p><Check/></div><div><span>03</span><p><b>A standard you feel.</b> The kind of finish that makes you pause at the door.</p><Check/></div><div><span>04</span><p><b>Easy from hello.</b> A friendly conversation, a clear quote, and a fresh start.</p><Check/></div></div></section>
 
-    <section className="quote" id="quote"><div className="quote-copy"><div className="eyebrow"><span/> YOUR LOVELY STARTS HERE</div><h2>Let’s make room<br/>for <em>lovely.</em></h2><p>A little about your space is all we need. We’ll be in touch with a thoughtful, no-obligation quote.</p><div className="quote-promise"><span>✳</span> A real person. A considered reply. No pressure.</div></div><form className="quote-form" onSubmit={submitQuote}><div className="form-top"><span>01 — TELL US A LITTLE</span><span>LET’S START HERE</span></div><label>Your name<input required name="name" autoComplete="name" placeholder="What should we call you?"/></label><div className="form-row"><label>Email address<input required type="email" name="email" autoComplete="email" placeholder="you@example.com"/></label><label>Phone number<input name="phone" autoComplete="tel" placeholder="Your number"/></label></div><label>What kind of clean?<span className="select-wrap"><select name="service" defaultValue="" required><option value="" disabled>Choose what you have in mind</option><option>Home cleaning</option><option>Commercial cleaning</option><option>Deep clean</option><option>Move-in / move-out</option><option>Something else</option></select><ChevronDown size={15}/></span></label><label>Anything else we should know?<textarea name="message" rows={2} placeholder="A few details about your space, if you like…"/></label><button className="button button-dark submit-button" disabled={submitting}>{submitting ? "Sending your note…" : "Request my complimentary quote"}<ArrowRight size={16}/></button>{status && <p className="form-status" role="status">{status}</p>}<p className="form-note">Just a friendly reply from us. Your details stay yours.</p></form></section>
-
-    <section className="faq section-pad" id="faq"><div className="faq-heading"><div className="eyebrow"><span/> GOOD TO KNOW</div><h2>A few little<br/><em>answers.</em></h2><p>Have another question? We’d love to hear it.</p><a className="text-link" href="#quote">Drop us a note <ArrowRight size={14}/></a></div><div className="faq-list">{faqs.map((f,i) => <div className={faqOpen === i ? "faq-item faq-active" : "faq-item"} key={f.q}><button onClick={() => setFaqOpen(faqOpen === i ? null : i)} aria-expanded={faqOpen === i}><span>{f.q}</span><span className="faq-plus">{faqOpen === i ? "−" : "+"}</span></button><div className="faq-answer"><p>{f.a}</p></div></div>)}</div></section>
+    <section className="faq section-pad" id="faq"><div className="faq-heading"><div className="eyebrow"><span/> GOOD TO KNOW</div><h2>A few little<br/><em>answers.</em></h2><p>Have another question? We’d love to hear it.</p><a className="text-link" href="/quote">Drop us a note <ArrowRight size={14}/></a></div><div className="faq-list">{faqs.map((f, i) => <details className="faq-item" key={f.q} open={i === 0}><summary><span>{f.q}</span><span className="faq-plus">+</span></summary><div className="faq-answer"><p>{f.a}</p></div></details>)}</div></section>
 
   </main>;
 }
