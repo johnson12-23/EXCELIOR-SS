@@ -11,3 +11,6 @@ create table if not exists public.quote_requests (
 alter table public.quote_requests enable row level security;
 -- Requests are inserted by the server API using a service-role key.
 -- Do not expose that key in NEXT_PUBLIC_* variables.
+
+notify pgrst, 'reload schema';
+

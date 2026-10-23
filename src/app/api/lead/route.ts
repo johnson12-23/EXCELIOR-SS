@@ -58,7 +58,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Please check your name, email, service and space details, then try again." }, { status: 400 });
   }
 
-  const supabaseUrl = process.env.SUPABASE_URL;
+  const supabaseUrl = process.env.SUPABASE_URL?.replace(/\/rest\/v1\/?$/, "").replace(/\/+$/, "");
   const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
   const resendKey = process.env.RESEND_API_KEY;
   const notificationEmail = process.env.QUOTE_NOTIFICATION_EMAIL;
@@ -78,7 +78,10 @@ export async function POST(request: Request) {
     }).select("id").single();
 
     if (error || !data?.id) {
-      console.error("Unable to save quote request", error?.message ?? "The inserted request did not return an id.");
+      console.error("Unable to save quote request", error?.code ?? "unknown", error?.message ?? "The inserted request did not return an id.");
+      if (error?.code === "PGRST205" || error?.code === "42P01") {
+        return NextResponse.json({ error: "Quote requests are not set up yet; please contact us directly while we finish setting up the form." }, { status: 503 });
+      }
       return NextResponse.json({ error: "We couldn’t save your request. Please try again shortly." }, { status: 500 });
     }
 
