@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./redesign.css";
 import "./admin.css";
+import "./theme.css";
 import SiteChrome from "./site-chrome";
 
 export const metadata: Metadata = {
@@ -11,5 +12,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body><SiteChrome>{children}</SiteChrome></body></html>;
+  return <html lang="en" suppressHydrationWarning><head><script dangerouslySetInnerHTML={{ __html: `try{if(localStorage.getItem("excelior-theme")==="dark")document.documentElement.dataset.theme="dark"}catch{}` }}/></head><body><SiteChrome>{children}</SiteChrome></body></html>;
 }

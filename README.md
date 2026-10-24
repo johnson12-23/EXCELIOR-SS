@@ -7,7 +7,7 @@ A responsive Next.js 15 and React website for Excelior Solution Services, with a
 1. Install dependencies with `npm install`.
 2. Copy `.env.example` to `.env.local` and set `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY`. Keep the service role key server-side; never prefix it with `NEXT_PUBLIC_`.
 3. Set `ADMIN_EMAIL`, `ADMIN_PASSWORD`, and a random `ADMIN_SESSION_SECRET` of at least 32 characters. Use a unique, long password. These values protect the admin session and are not stored in the database.
-4. To email quote notifications to the business and a receipt to the client, also configure `RESEND_API_KEY`, `QUOTE_NOTIFICATION_EMAIL`, and `RESEND_FROM_EMAIL`. The sender domain must be verified with Resend.
+4. To email quote notifications and general contact messages, configure `RESEND_API_KEY`, `QUOTE_NOTIFICATION_EMAIL`, and `RESEND_FROM_EMAIL`. The sender domain must be verified with Resend. The admin Settings page can also provide the public business email used as a recipient when `QUOTE_NOTIFICATION_EMAIL` is unset.
 5. Run the complete, idempotent `supabase/schema.sql` in the Supabase SQL editor. It creates or extends `public.quote_requests`, adds the service, team, settings, and payment-ledger tables, and enables RLS. The application uses its server-side service-role key for authorized admin actions.
 6. Run `npm run dev` and visit `http://localhost:3000`. The public site is at `/`; the admin sign-in page is at `/admin/login`.
 

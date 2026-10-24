@@ -272,7 +272,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   .intro-stamp { display: none; }
   .quote { padding-right: 6%; padding-left: 6%; }
 }
-@media (max-width: 760px) {
+@media (max-width: 860px) {
   html { scroll-padding-top: 76px; }
   .announcement { min-height: 30px; font-size: 10px; }
   .header { height: 68px; padding: 0 5%; }
