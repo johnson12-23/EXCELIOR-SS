@@ -4,12 +4,13 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { Activity, Bell, CalendarDays, ChartNoAxesCombined, ChevronDown, ChevronRight, CircleDollarSign, LayoutDashboard, LogOut, Menu, Settings, Sparkles, Users, UserRound, X } from "lucide-react";
+import { Activity, Bell, CalendarDays, ChartNoAxesCombined, ChevronDown, ChevronRight, CircleDollarSign, LayoutDashboard, LogOut, Menu, MessageSquareText, Settings, Sparkles, Users, UserRound, X } from "lucide-react";
 import ThemeToggle from "@/app/theme-toggle";
 
 const navigation = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/bookings", label: "Bookings", icon: CalendarDays },
+  { href: "/admin/messages", label: "Messages", icon: MessageSquareText },
   { href: "/admin/clients", label: "Clients", icon: Users },
   { href: "/admin/services", label: "Services", icon: Sparkles },
   { href: "/admin/team", label: "Team", icon: UserRound },

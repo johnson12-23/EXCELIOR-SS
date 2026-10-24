@@ -18,3 +18,4 @@ export type ServiceItem = { id: string; name: string; description: string; price
 export type TeamMember = { id: string; name: string; email: string | null; phone: string | null; role: string; active: boolean; created_at: string };
 export type BusinessSettings = { company_name: string; business_email: string; business_phone: string; service_areas: string; booking_policy: string; email_notifications: boolean };
 export type PaymentTransaction = { id: string; quote_request_id: string | null; provider: string; reference: string; amount_minor: number; currency: string; status: "pending" | "successful" | "failed" | "refunded"; verified_at: string | null; created_at: string };
+export type ContactMessage = { id: string; name: string; email: string; topic: string; message: string; is_read: boolean; created_at: string };

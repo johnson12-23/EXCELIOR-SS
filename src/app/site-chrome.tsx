@@ -13,7 +13,7 @@ const navigation = [
   { href: "/approach", label: "Our approach" },
   { href: "/faq", label: "FAQs" },
   { href: "/contact", label: "Contact" },
-  { href: "/quote", label: "Let’s talk" },
+  { href: "/quote", label: "Book now", className: "header-book-button" },
 ];
 
 export default function SiteChrome({ children }: Readonly<{ children: React.ReactNode }>) {
@@ -29,12 +29,12 @@ export default function SiteChrome({ children }: Readonly<{ children: React.Reac
     <header className="header">
       <Link className="brand" href="/" aria-label="Excelior home"><Image className="brand-logo" src="/excelior-logo.svg" alt="" width={48} height={48} priority/><span className="brand-copy">EXCELIOR<small>SOLUTIONS SERVICES</small></span></Link>
       <nav className={menuOpen ? "nav nav-open" : "nav"} aria-label="Main navigation" id="main-navigation">
-        {navigation.map((item) => <Link href={item.href} key={item.href} onClick={() => setMenuOpen(false)} aria-current={pathname === item.href ? "page" : undefined}>{item.label}</Link>)}
+        {navigation.map((item) => <Link className={item.className} href={item.href} key={item.href} onClick={() => setMenuOpen(false)} aria-current={pathname === item.href ? "page" : undefined}>{item.label}</Link>)}
       </nav>
       <ThemeToggle className="site-theme-toggle"/>
       <button className="menu-button" onClick={() => setMenuOpen((open) => !open)} aria-label={menuOpen ? "Close menu" : "Open menu"} aria-expanded={menuOpen} aria-controls="main-navigation">{menuOpen ? <X/> : <Menu/>}</button>
     </header>
     {children}
-    <footer className="footer"><div className="footer-top"><p>A little more lovely,<br/><i>every day.</i></p></div><div className="footer-bottom"><span>© {new Date().getFullYear()} EXCELIOR SOLUTIONS SERVICES</span><span>MADE WITH CARE, ALWAYS <b>✳</b></span><Link href="/">BACK TO HOME ↑</Link></div></footer>
+    <footer className="footer"><div className="footer-main"><div className="footer-top"><p>A little more lovely,<br/><i>every day.</i></p><p className="footer-tagline">Clean Spaces. Better Living.</p></div><div className="footer-contact"><h2>Get in touch</h2><a href="mailto:exceliorsshp@gmail.com">exceliorsshp@gmail.com</a><a href="tel:+233597875558">+233 59 787 5558</a></div><nav className="footer-links" aria-label="Footer navigation"><h2>Explore</h2>{navigation.map((item) => <Link href={item.href} key={item.href}>{item.label}</Link>)}</nav></div><div className="footer-bottom"><span>© {new Date().getFullYear()} EXCELIOR SOLUTIONS SERVICES</span><span>MADE WITH CARE, ALWAYS <b>✳</b></span><Link href="/">BACK TO HOME ↑</Link></div></footer>
   </>;
 }
