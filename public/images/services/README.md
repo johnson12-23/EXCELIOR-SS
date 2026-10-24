@@ -1,12 +1,12 @@
 # Service images
 
-The Services page uses these named image files from the `public/` directory:
+The Services page maps these current image files in `public/` to the matching service cards:
 
-- `residential.jpg` for Home cleaning
-- `workspaces.jpg` for Commercial cleaning
-- `fresh starts.jpg` for Deep & move cleans
-- `routine care.jpg` for Shallow cleaning
-- `after renovation.jpg` for Post-renovation cleaning
-- `Floor care.jpg` for Floor cleaning and polishing
+- `residential 1.jpg` for Home cleaning
+- `workspace 1.jpg` for Commercial cleaning
+- `Deep cleaning 1.jpg` for Deep & move cleans
+- `routine care 1.jpg` for Shallow cleaning
+- `after renovation 1.jpg` for Post-renovation cleaning
+- `floor care 1.jpg` for Floor cleaning and polishing
 
-Keep each image in `public/` with its existing filename. The Services page maps each file directly to its matching service card. Landscape images work best in the 16:9 card frames.
+Keep the filenames unchanged so the page can find each image. Landscape images work best in the 16:9 card frames.

@@ -8,3 +8,4 @@
 @media(prefers-reduced-motion:reduce){.admin-app *{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
 .admin-payment-stats{grid-template-columns:repeat(5,minmax(0,1fr))}
 @media(max-width:980px){.admin-payment-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.admin-logo-image{width:39px;height:39px;flex:0 0 auto;object-fit:contain;border-radius:0;background:transparent;padding:0;box-shadow:none}.admin-login-logo{display:block;width:68px;height:68px;object-fit:contain;margin-bottom:20px}

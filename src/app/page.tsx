@@ -7,9 +7,14 @@ const services = [
   { no: "01", title: "Home, beautifully", desc: "Regular care for the rooms you live in, shaped around your routine and the details that matter to you.", tag: "RESIDENTIAL" },
   { no: "02", title: "Work, without the mess", desc: "A considered workspace sets the tone. We keep yours ready for what comes next.", tag: "COMMERCIAL" },
   { no: "03", title: "A fresh beginning", desc: "Move-in or move-out. We take care of the details the last set of keys left behind.", tag: "DEEP CLEAN" },
-  { no: "04", title: "Shallow cleaning", desc: "A practical surface-level refresh for well-maintained spaces and everyday upkeep.", tag: "ROUTINE CARE" },
-  { no: "05", title: "Post-renovation cleaning", desc: "A careful clean to clear renovation dust and leave updated rooms ready to enjoy.", tag: "AFTER RENOVATION" },
-  { no: "06", title: "Floor cleaning and polishing", desc: "Focused floor care to lift everyday dirt and bring back a smooth, polished finish.", tag: "FLOOR CARE" },
+  { no: "04", title: "A fresh finish after renovations", desc: "A careful clean to clear renovation dust and leave updated rooms ready to enjoy.", tag: "AFTER RENOVATION" },
+];
+
+const featuredServiceMatches = [
+  ["home cleaning", "home", "residential"],
+  ["commercial cleaning", "commercial", "office"],
+  ["deep cleaning", "deep", "move"],
+  ["post-renovation cleaning", "renovation"],
 ];
 
 const faqs = [
@@ -21,7 +26,11 @@ export default function Home() {
   const [catalog, setCatalog] = useState(services);
   useEffect(() => {
     fetch("/api/services").then((response) => response.json()).then((result) => {
-      if (Array.isArray(result.services)) setCatalog(result.services.map((service: { name: string; description: string }, index: number) => ({ no: String(index + 1).padStart(2, "0"), title: service.name, desc: service.description, tag: service.name.toUpperCase() })));
+      if (Array.isArray(result.services)) {
+        const available = result.services.filter((service: { name: string }) => service.name.trim().toLowerCase() !== "something else");
+        const featured = featuredServiceMatches.map((matches) => available.find((service: { name: string }) => matches.some((match) => service.name.toLowerCase().includes(match))));
+        if (featured.every(Boolean)) setCatalog(featured.map((service, index) => ({ ...services[index], desc: service!.description })));
+      }
     }).catch(() => undefined);
   }, []);
   return <main className="home-page">
@@ -50,7 +59,6 @@ export default function Home() {
         </svg>
       </div>
       <a className="scroll-link" href="#services"><ArrowDown size={14}/> SCROLL A LITTLE</a>
-      <div className="hero-index">01 <span/> 03</div>
     </section>
 
     <section className="intro section-pad" id="approach">
@@ -62,14 +70,14 @@ export default function Home() {
     <section className="services section-pad" id="services">
       <div className="section-top"><div><div className="eyebrow"><span/> WHAT WE DO, BEAUTIFULLY</div><h2>A place for every<br/><em>kind of clean.</em></h2></div><p className="section-aside">A thoughtful team. A fresh perspective.<br/>The little details, taken care of.</p></div>
       <div className="service-grid">{catalog.map((s) => <article className="service-card service-card-text" key={s.no}><div className="service-info"><div className="service-card-top"><span className="service-number">{s.no}</span><span className="service-tag">{s.tag}</span></div><h3>{s.title}</h3><p>{s.desc}</p><a className="text-link" href="/quote">Ask about this service <ArrowRight size={14}/></a></div></article>)}</div>
-      <div className="services-foot"><span>GOOD THINGS, THOUGHTFULLY DONE.</span><a className="text-link" href="/quote">Find your kind of clean <ArrowRight size={14}/></a></div>
+      <div className="services-foot"><span>GOOD THINGS, THOUGHTFULLY DONE.</span><a className="text-link" href="/services">Find your kind of clean <ArrowRight size={14}/></a></div>
     </section>
 
     <section className="manifesto" id="love"><div className="manifesto-photo" role="img" aria-label="Detail of a quiet, warmly lit home"/><div className="manifesto-panel"><span className="eyebrow"><span/> THE EXCELIOR TOUCH</span><div className="manifesto-star">✳</div><h2>Care is in<br/>the <em>details.</em></h2><p>We believe a truly lovely clean isn’t a checklist. It’s noticing the things that matter to you, respecting the space you’ve made, and leaving everything feeling a little lighter.</p><div className="manifesto-sign">A little more lovely, <i>every day.</i></div><a className="button button-dark" href="/quote">Meet your new clean <ArrowRight size={16}/></a></div></section>
 
     <section className="promise section-pad"><div className="promise-heading"><div className="eyebrow"><span/> OUR PROMISE TO YOU</div><h2>The little things<br/>make <em>all the difference.</em></h2></div><div className="promise-list"><div><span>01</span><p><b>People, with care.</b> Thoughtful, professional cleaners who care about the details.</p><Check/></div><div><span>02</span><p><b>Made around you.</b> Your priorities, your space, your kind of lovely.</p><Check/></div><div><span>03</span><p><b>A standard you feel.</b> The kind of finish that makes you pause at the door.</p><Check/></div><div><span>04</span><p><b>Easy from hello.</b> A friendly conversation, a clear quote, and a fresh start.</p><Check/></div></div></section>
 
-    <section className="faq section-pad" id="faq"><div className="faq-heading"><div className="eyebrow"><span/> GOOD TO KNOW</div><h2>A few little<br/><em>answers.</em></h2><p>Have another question? We’d love to hear it.</p><a className="text-link" href="/quote">Drop us a note <ArrowRight size={14}/></a></div><div className="route-faq-list">{faqs.map((f, i) => <details key={f.q} open={i === 0}><summary>{f.q}<span>+</span></summary><p>{f.a}</p></details>)}</div></section>
+    <section className="faq section-pad" id="faq"><div className="faq-heading"><div className="eyebrow"><span/> GOOD TO KNOW</div><h2>A few little<br/><em>answers.</em></h2><p>Have another question? We’d love to hear it.</p><a className="text-link" href="/faq">Any other thing you want to know? <ArrowRight size={14}/></a></div><div className="route-faq-list">{faqs.map((f, i) => <details key={f.q} open={i === 0}><summary>{f.q}<span>+</span></summary><p>{f.a}</p></details>)}</div></section>
 
   </main>;
 }

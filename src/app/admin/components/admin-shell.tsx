@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { Activity, Bell, CalendarDays, ChartNoAxesCombined, ChevronDown, ChevronRight, CircleDollarSign, LayoutDashboard, LogOut, Menu, Settings, Sparkles, Users, UserRound, X } from "lucide-react";
 
@@ -31,7 +32,7 @@ export default function AdminShell({ children, email }: { children: React.ReactN
   return <div className="admin-app">
     {drawer && <button className="admin-drawer-backdrop" aria-label="Close navigation" onClick={() => setDrawer(false)}/>}
     <aside className={`admin-sidebar ${drawer ? "is-open" : ""}`}>
-      <div className="admin-brand"><span className="admin-brand-mark">E</span><span><b>EXCELIOR</b><small>SOLUTION SERVICES</small></span><button className="admin-mobile-close" aria-label="Close navigation" onClick={() => setDrawer(false)}><X size={18}/></button></div>
+      <div className="admin-brand"><Image className="admin-logo-image" src="/excelior-logo.svg" alt="" width={39} height={39} priority/><span><b>EXCELIOR</b><small>SOLUTION SERVICES</small></span><button className="admin-mobile-close" aria-label="Close navigation" onClick={() => setDrawer(false)}><X size={18}/></button></div>
       <p className="admin-slogan">Clean Spaces. Better Living.</p>
       <span className="admin-nav-label">WORKSPACE</span>
       <nav aria-label="Admin navigation">{navigation.map(({ href, label, icon: Icon }) => <Link key={href} href={href} className={`admin-nav-item ${(path === href || (href !== "/admin" && path.startsWith(href + "/"))) ? "active" : ""}`} onClick={() => setDrawer(false)}><Icon size={18}/><span>{label}</span>{label === "Bookings" && <ChevronRight className="admin-nav-arrow" size={15}/>}</Link>)}</nav>

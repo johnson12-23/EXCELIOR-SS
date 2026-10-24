@@ -248,7 +248,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .quote-route-copy h2 em { color: var(--blue); font-weight: 700; }
 .quote-route-copy>p { color: #5f6c79; font-size: 15px; line-height: 1.75; }
 .route-quote-form { display: block; width: 100%; min-width: 0; padding: 34px 36px; border: 1px solid #dce5ef; border-radius: 12px; background: linear-gradient(165deg, #fff 0%, #fbfcfe 100%); box-shadow: 0 18px 48px rgba(23, 55, 98, .1); scroll-margin-top: 96px; }
-.route-quote-form .form-top { margin-bottom: 23px; padding-bottom: 17px; color: #526782; border-color: #e5ebf2; }
+.route-quote-form .form-top { display: grid; grid-template-columns: 1fr; gap: 5px; margin-bottom: 23px; padding-bottom: 17px; color: #526782; border-color: #e5ebf2; }
 .route-quote-form label { display: block; width: 100%; margin: 19px 0 0; color: #2d3d52; font-size: 12px; font-weight: 650; }
 .route-quote-form input, .route-quote-form select, .route-quote-form textarea { display: block; width: 100%; min-width: 0; min-height: 48px; margin-top: 7px; padding: 12px 14px; border: 1px solid #dce4ee; border-radius: 7px; background: #f8fafc; color: #26364a; font-size: 14px; transition: background .18s ease, border-color .18s ease, box-shadow .18s ease; }
 .route-quote-form .form-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; width: 100%; }
