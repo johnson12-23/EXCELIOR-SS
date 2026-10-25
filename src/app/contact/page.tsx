@@ -5,7 +5,7 @@ import ContactForm from "./contact-form";
 export const dynamic = "force-dynamic";
 
 export default async function ContactPage() {
-  const email = "exceliorsshp@gmail.com";
+  const email = "infoexceliorss@gmail.com";
   const phone = "+233 59 787 5558";
 
   return <main className="interior-page contact-page">

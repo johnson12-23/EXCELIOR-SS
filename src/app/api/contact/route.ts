@@ -27,7 +27,7 @@ export async function POST(request: Request) {
   // Email notification is optional: database delivery remains successful if Resend is not configured.
   const apiKey = process.env.RESEND_API_KEY;
   const sender = process.env.RESEND_FROM_EMAIL;
-  const recipient = process.env.QUOTE_NOTIFICATION_EMAIL || "exceliorsshp@gmail.com";
+  const recipient = process.env.QUOTE_NOTIFICATION_EMAIL || "infoexceliorss@gmail.com";
   if (apiKey && sender) {
     try {
       const response = await fetch("https://api.resend.com/emails", {
